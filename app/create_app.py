@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, Blueprint
 from flask_login import current_user
+from flask_cors import CORS
 
 from extensions import db, login_manager
 import auth
@@ -24,6 +25,8 @@ def index():
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
+
     app.secret_key = os.environ.get('SECRET_KEY')
 
     app.config['SQLALCHEMY_ECHO'] = False
