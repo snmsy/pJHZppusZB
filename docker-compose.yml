@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    environment:
+      - PORT=8000
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/default
+      - SECRET_KEY=pukapuka
+      - GOOGLE_CLIENT_ID=hogehoge
+      - GOOGLE_CLIENT_SECRET=fugafuga
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./app:/home/app
+    restart: always
+
+  db:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: default
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
